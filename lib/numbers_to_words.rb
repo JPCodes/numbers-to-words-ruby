@@ -88,12 +88,16 @@ class Fixnum
       1 => "thousand ",
       2 => "million ",
       3 => "billion ",
-      4 => "trillion "
+      4 => "trillion ",
+      5 => "quadrillion ",
+      6 => "quintillion ",
+
      }
     max = (self.to_s.length().to_f/3).ceil
-    numbers=chunk(self.to_s,3).reverse!
+    numbers=chunk(self.to_s.reverse!,3)
+    puts numbers
     for i in 0..max-1
-      final.unshift(numbers[i].getNameFromThirds + ted2.fetch(i))
+      final.unshift(numbers[i].reverse!.getNameFromThirds + ted2.fetch(i))
     end
     print final.join("")
   end
@@ -101,4 +105,4 @@ class Fixnum
 end
 
 
-112345.numbers_to_words()
+3123456734289132345.numbers_to_words()
