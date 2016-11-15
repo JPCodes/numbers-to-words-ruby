@@ -56,6 +56,7 @@ define_method(:under_hundred) do
 end
 
 define_method(:over_hundred) do
+  puts "over hundred method"
   diego.fetch(self)+ted.fetch(1)
 end
 
@@ -64,10 +65,14 @@ def chunk(string, size)
 end
 
 define_method(:getNameFromThirds) do
+  puts "get name from thirds"
   if self.to_s[-2,2].to_i < 100
+    "if statement it should not come here"
     answer = self.to_i.under_hundred()
   end
-  if self.to_s[-3].to_i>1
+  puts "in between the two ifs"
+  if self.to_s[-3].to_i>=1
+    puts "if statement where over hundred should be called"
     answer= self.to_s[-3].to_i.over_hundred() + self.to_s[-2,2].to_i.under_hundred()
   end
   answer
@@ -89,7 +94,9 @@ class Fixnum
     for i in 0..max-1
       blah.unshift(numbers[i].getNameFromThirds + ted2.fetch(i))
     end
-    blah.join("")
+    print blah.join("")
   end
 
 end
+
+109.numbers_to_words()
