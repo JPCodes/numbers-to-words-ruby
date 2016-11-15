@@ -44,11 +44,15 @@ define_method(:under_hundred) do
   if self < 20
    answer = diego.fetch(self)
  elsif self > 19
-   answer = self.to_s.reverse!.split("").map.with_index{ |number,index|
+   answer = self.to_s.reverse!.split("").map.with_index{ |num,index|
      if index == 0
-       diego.fetch(number.to_i)
+       diego.fetch(num.to_i)
      elsif index == 1
-       james.fetch(number.to_i)
+       if num.to_i == 1
+         diego.fetch(num.to_i)
+       elsif num.to_i != 1
+         james.fetch(num.to_i)
+       end
      end
    }
    answer = answer.reverse!.join("")
@@ -56,7 +60,6 @@ define_method(:under_hundred) do
 end
 
 define_method(:over_hundred) do
-  puts "over hundred method"
   diego.fetch(self)+ted.fetch(1)
 end
 
@@ -65,14 +68,12 @@ def chunk(string, size)
 end
 
 define_method(:getNameFromThirds) do
-  puts "get name from thirds"
+
   if self.to_s[-2,2].to_i < 100
-    "if statement it should not come here"
     answer = self.to_i.under_hundred()
   end
-  puts "in between the two ifs"
+
   if self.to_s[-3].to_i>=1
-    puts "if statement where over hundred should be called"
     answer= self.to_s[-3].to_i.over_hundred() + self.to_s[-2,2].to_i.under_hundred()
   end
   answer
@@ -81,7 +82,7 @@ end
 class Fixnum
   final=""
   define_method(:numbers_to_words) do
-    blah=[]
+    final=[]
     ted2 = {
       0 => "",
       1 => "thousand ",
@@ -92,11 +93,12 @@ class Fixnum
     max = (self.to_s.length().to_f/3).ceil
     numbers=chunk(self.to_s,3).reverse!
     for i in 0..max-1
-      blah.unshift(numbers[i].getNameFromThirds + ted2.fetch(i))
+      final.unshift(numbers[i].getNameFromThirds + ted2.fetch(i))
     end
-    print blah.join("")
+    print final.join("")
   end
 
 end
 
-109.numbers_to_words()
+
+112345.numbers_to_words()
