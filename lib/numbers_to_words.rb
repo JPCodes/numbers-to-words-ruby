@@ -95,14 +95,12 @@ class Fixnum
      }
     max = (self.to_s.length().to_f/3).ceil
     numbers=chunk(self.to_s.reverse!,3)
-    puts numbers
     for i in 0..max-1
-      final.unshift(numbers[i].reverse!.getNameFromThirds + ted2.fetch(i))
+      if(numbers[i].to_i!=000)
+        final.unshift(numbers[i].reverse!.getNameFromThirds + ted2.fetch(i))
+      end
     end
     print final.join("")
   end
 
 end
-
-
-3123456734289132345.numbers_to_words()
